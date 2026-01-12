@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    'drf_spectacular',
+    'drf_spectacular_sidecar',
     "django_filters",
     "student",
     "question",
@@ -135,10 +137,31 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
-    "DEFAULT_PAGINATION_CLASS": ("rest_framework.pagination.PageNumberPagination"),
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 30,
     'DEFAULT_VERSION': 'v1',
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 AUTH_USER_MODEL = 'student.Student'
 
+SPECTACULAR_SETTINGS = {
+    "TITLE": "API de Exames",
+    "DESCRIPTION": "Documentação da API de provas e questões.",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "DEBUG",
+    },
+}
